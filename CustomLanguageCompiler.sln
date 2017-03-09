@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomLanguageCompiler", "CustomLanguageCompiler.csproj", "{13AF148C-ED40-45B0-BDBF-BA9E2DCD493C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTrainingCompiler", "..\SimpleTrainningCompiler\SimpleTrainingCompiler.csproj", "{9327ACC1-1E26-4DDC-A611-33B50A9612E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTrainingCompiler", "SimpleTrainningCompiler\SimpleTrainingCompiler.csproj", "{9327ACC1-1E26-4DDC-A611-33B50A9612E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
