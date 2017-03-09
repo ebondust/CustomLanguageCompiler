@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomLanguageCompiler", "CustomLanguageCompiler.csproj", "{13AF148C-ED40-45B0-BDBF-BA9E2DCD493C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTrainingCompiler", "..\SimpleTrainningCompiler\SimpleTrainingCompiler.csproj", "{9327ACC1-1E26-4DDC-A611-33B50A9612E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{13AF148C-ED40-45B0-BDBF-BA9E2DCD493C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13AF148C-ED40-45B0-BDBF-BA9E2DCD493C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13AF148C-ED40-45B0-BDBF-BA9E2DCD493C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9327ACC1-1E26-4DDC-A611-33B50A9612E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9327ACC1-1E26-4DDC-A611-33B50A9612E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9327ACC1-1E26-4DDC-A611-33B50A9612E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9327ACC1-1E26-4DDC-A611-33B50A9612E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
