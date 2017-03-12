@@ -23,12 +23,12 @@ namespace SimpleTrainingCompiler
 
         struct Token
         {
-            public Token(int value, string lexeme)
+            public Token(int type, string lexeme)
             {
-                this.value = value;
+                this.type = type;
                 this.lexeme = lexeme;
             }
-            public int value;
+            public int type;
             public string lexeme;
         }
 
@@ -104,7 +104,7 @@ namespace SimpleTrainingCompiler
             }
             tokens.Add(new Token(EOF, ""));
             Output.Add("Tokenization Completed");
-            Output.AddRange(tokens.Select(x => "Token: " + x.value + " Lexeme: " + x.lexeme));
+            Output.AddRange(tokens.Select(x => "Token: " + x.type + " Lexeme: " + x.lexeme));
         }
 
         bool isSpace(char a)
