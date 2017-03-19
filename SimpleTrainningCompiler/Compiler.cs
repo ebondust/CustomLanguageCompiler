@@ -114,11 +114,11 @@ namespace SimpleTrainingCompiler
 
         bool isNumber(char a)
         {
-            return (Regex.IsMatch(a + "", "^[0-9]+$")) ? true : false;
+            return Regex.IsMatch(a + "", "^[0-9]+$");
         }
         protected bool isVariable(char a)
         {
-            return (Regex.IsMatch(a + "", "^[A-Za-z]+$")) ? true : false;
+            return Regex.IsMatch(a + "", "^[A-Za-z]+$");
         }
 
         public string GetOutput()
