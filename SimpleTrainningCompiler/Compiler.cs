@@ -34,7 +34,25 @@ namespace SimpleTrainingCompiler
 
         public List<string> Output = new List<string>();
 
+        public List<string> OutputCode = new List<string>();
+
         private List<Token> tokens;
+
+        private int tIndex = -1;
+
+        private Token currentToken
+        {
+            get
+            {
+                return tokens[tIndex];
+            }
+        }
+
+        private Token nextToken()
+        {
+            tIndex++;
+            return tokens[tIndex];
+        }
 
         public void Compile(string code)
         {
@@ -107,7 +125,70 @@ namespace SimpleTrainingCompiler
             Output.AddRange(tokens.Select(x => "Token: " + x.type + " Lexeme: " + x.lexeme));
         }
 
-        bool isSpace(char a)
+        public void Parse()
+        {
+            statements();
+        }
+
+        private void statements()
+        {
+            while(nextToken().type != EOF)
+            {
+                expression();
+                if (currentToken.type != SEMICOLON)
+                {
+                    Output.Add("missing semicolon");
+                    return;
+                }
+            }
+        }
+
+        private void expression()
+        {
+
+            Token a1 = term();
+            while (nextToken().type == MINUS || currentToken.type == PLUS)
+            {
+                Token a2 = term();
+                OutputCode.Add("ADD "+a1.lexeme+", "+a2.lexeme);
+            }
+        }
+
+        private Token term()
+        {
+            var a1 = factor();
+            while(nextToken().type == TIMES || currentToken.type == OVER)
+            {
+                Token a2 = factor();
+                if (currentToken.type == OVER)
+                {
+                    OutputCode.Add();
+                }
+                else
+                {
+                    var a
+                }
+            }
+        }
+
+        private void assigment()
+        {
+
+        }
+
+        private Token factor()
+        {
+            if (currentToken.type == NUMBER)
+                return currentToken;
+            else
+            {
+                Output.Add("Expected number, got "+currentToken.lexeme);
+                return new Token(EOF,"EOf");
+            }
+        }
+
+
+            bool isSpace(char a)
         {
             return (a == ' ' || a == '\n' || a == '\t') ? true : false;
         }
