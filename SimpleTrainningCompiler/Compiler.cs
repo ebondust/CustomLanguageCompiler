@@ -143,42 +143,50 @@ namespace SimpleTrainingCompiler
                     Output.Add("missing semicolon");
                     return;
                 }
+                tIndex++;
             }
         }
 
         private void expression()
         {
-            Token a1 = term();
+            term();
+            OutputCode.Add("PUSH EAX");
             while (currentToken.type == MINUS || currentToken.type == PLUS)
             {
                 Token op = currentToken;
                 tIndex++;
-                Token a2 = term();
-                if(op.type == PLUS)
-                    OutputCode.Add("ADD "+a1.lexeme+", "+a2.lexeme);
+                term();
+                OutputCode.Add("POP EBX");
+                if (op.type == PLUS)
+                    OutputCode.Add("ADD EAX, EBX");
                 else
-                     OutputCode.Add("SUB "+a1.lexeme+", "+a2.lexeme);
-             
+                {
+                    OutputCode.Add("SUB EAX, EBX");
+                    OutputCode.Add("Neg(EAX)");
+                }
             }
         }
 
-        private Token term()
+        private void term()
         {
-            var a1 = factor();
-            tIndex++;
+            factor();
             while (currentToken.type == TIMES || currentToken.type == OVER)
             {
                 Token op = currentToken;
+                OutputCode.Add("PUSH EAX");
                 tIndex++;
-                Token a2 = factor();
-
-                if(op.type == TIMES)
-                    OutputCode.Add("MUL "+a1.lexeme+", "+a2.lexeme);
+                factor();
+                OutputCode.Add("POP EBX");
+                if (op.type == TIMES)
+                {
+                    OutputCode.Add("MUL EAX,EBX");
+                }
                 else
-                     OutputCode.Add("DIV "+a1.lexeme+", "+a2.lexeme);
-                tIndex++;
-            }
-            return a1;
+                {
+                    OutputCode.Add("MOV DX,0");
+                    OutputCode.Add("DIV EAX, EBX");
+                }
+            } 
         }
 
         private void assigment()
@@ -186,14 +194,16 @@ namespace SimpleTrainingCompiler
 
         }
 
-        private Token factor()
+        private void factor()
         {
             if (currentToken.type == NUMBER)
-                return currentToken;
+            {
+                OutputCode.Add("Mov EAX, " + currentToken.lexeme);
+                tIndex++;
+            }
             else
             {
-                Output.Add("Expected number, got "+currentToken.lexeme);
-                return new Token(EOF,"EOf");
+                Output.Add("Expected number, got " + currentToken.lexeme); 
             }
         }
 
