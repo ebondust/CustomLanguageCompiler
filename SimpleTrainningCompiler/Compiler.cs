@@ -38,7 +38,7 @@ namespace SimpleTrainingCompiler
 
         private List<Token> tokens;
 
-        private int tIndex = -1;
+        private int tIndex = 0;
 
         private Token currentToken
         {
@@ -48,15 +48,18 @@ namespace SimpleTrainingCompiler
             }
         }
 
-        private Token nextToken()
+        private Token nextToken
         {
-            tIndex++;
-            return tokens[tIndex];
+            get
+            {
+                return tokens[tIndex+1];
+            }
         }
 
         public void Compile(string code)
         {
             tokenize(code);
+            Parse();
         }
 
         private void tokenize(string code)
@@ -132,7 +135,7 @@ namespace SimpleTrainingCompiler
 
         private void statements()
         {
-            while(nextToken().type != EOF)
+            while(currentToken.type != EOF)
             {
                 expression();
                 if (currentToken.type != SEMICOLON)
@@ -145,30 +148,37 @@ namespace SimpleTrainingCompiler
 
         private void expression()
         {
-
             Token a1 = term();
-            while (nextToken().type == MINUS || currentToken.type == PLUS)
+            while (currentToken.type == MINUS || currentToken.type == PLUS)
             {
+                Token op = currentToken;
+                tIndex++;
                 Token a2 = term();
-                OutputCode.Add("ADD "+a1.lexeme+", "+a2.lexeme);
+                if(op.type == PLUS)
+                    OutputCode.Add("ADD "+a1.lexeme+", "+a2.lexeme);
+                else
+                     OutputCode.Add("SUB "+a1.lexeme+", "+a2.lexeme);
+             
             }
         }
 
         private Token term()
         {
             var a1 = factor();
-            while(nextToken().type == TIMES || currentToken.type == OVER)
+            tIndex++;
+            while (currentToken.type == TIMES || currentToken.type == OVER)
             {
+                Token op = currentToken;
+                tIndex++;
                 Token a2 = factor();
-                if (currentToken.type == OVER)
-                {
-                    OutputCode.Add();
-                }
+
+                if(op.type == TIMES)
+                    OutputCode.Add("MUL "+a1.lexeme+", "+a2.lexeme);
                 else
-                {
-                    var a
-                }
+                     OutputCode.Add("DIV "+a1.lexeme+", "+a2.lexeme);
+                tIndex++;
             }
+            return a1;
         }
 
         private void assigment()
@@ -205,6 +215,11 @@ namespace SimpleTrainingCompiler
         public string GetOutput()
         {
             return string.Join("\n", Output.ToArray());
+        }
+
+        public string GetOutputCode()
+        {
+            return string.Join("\n", OutputCode.ToArray());
         }
     }
 }

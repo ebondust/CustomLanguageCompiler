@@ -18,6 +18,7 @@ namespace CustomLanguageCompiler
             compiler.Compile(code);
             
             Console.WriteLine(compiler.GetOutput());
+            Console.WriteLine(compiler.GetOutputCode());
             Console.ReadLine();
         }
     }
